@@ -34,3 +34,5 @@ us-west-1:
   amazonlinux2: ami-0358d6db3187f001b
 us-west-2:
   amazonlinux2: ami-0acb9a8339ab465bd
+me-central-1:
+  amazonlinux2: ami-0c8a6ea82e7963849

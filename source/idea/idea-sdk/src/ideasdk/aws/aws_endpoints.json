@@ -90,6 +90,9 @@
         "me-south-1": {
           "description": "Middle East (Bahrain)"
         },
+        "me-central-1": {
+          "description": "Middle East (Abu Dhabi)"
+        },
         "sa-east-1": {
           "description": "South America (Sao Paulo)"
         },
@@ -175,6 +178,7 @@
               "hostname": "access-analyzer-fips.us-west-2.amazonaws.com"
             },
             "me-south-1": {},
+            "me-central-1":{},
             "sa-east-1": {},
             "us-east-1": {
               "variants": [
@@ -265,6 +269,7 @@
             "eu-west-2": {},
             "eu-west-3": {},
             "me-south-1": {},
+            "me-central-1":{},
             "sa-east-1": {},
             "us-east-1": {
               "variants": [
@@ -404,6 +409,7 @@
               "hostname": "acm-pca-fips.us-west-2.amazonaws.com"
             },
             "me-south-1": {},
+            "me-central-1":{},
             "sa-east-1": {},
             "us-east-1": {
               "variants": [
@@ -482,6 +488,7 @@
             "eu-west-2": {},
             "eu-west-3": {},
             "me-south-1": {},
+            "me-central-1":{},
             "sa-east-1": {},
             "us-east-1": {},
             "us-east-2": {},
@@ -503,6 +510,7 @@
             "eu-west-2": {},
             "eu-west-3": {},
             "me-south-1": {},
+            "me-central-1":{},
             "sa-east-1": {},
             "us-east-1": {},
             "us-east-2": {},
