@@ -288,12 +288,7 @@ class SocaCliContext(SocaContext):
             )
 
         except Exception as e:
-            print(f"aws_init Exception: {e}")
-
-            # if not self.aws_util():
-            #     print(f"aws_init Exception: {e}")
-            # else:
-            #     self.aws_util().handle_aws_exception(e)
+            self.aws_util().handle_aws_exception(e)
 
     def refresh_aws_credentials(self):
         if not self.aws().are_credentials_expired():
