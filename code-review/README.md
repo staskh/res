@@ -8,6 +8,7 @@ Research and Engineering Studio (RES) is an AWS supported, open source product t
 - [Demo Installation CFN](https://s3.amazonaws.com/aws-hpc-recipes/main/recipes/res/res_demo_env/assets/res-demo-stack.yaml)
   - [Demo Source Code](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/res_demo_env/assets/res-demo-stack.yaml)
   - [Demo components](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/)
+  - [Demo components documentation](https://github.com/aws-samples/aws-hpc-recipes/tree/main/recipes/res/res_demo_env/docs)
 - [Production Install CFN](https://research-engineering-studio-us-east-1.s3.amazonaws.com/releases/latest/ResearchAndEngineeringStudio.template.json)
 
 
