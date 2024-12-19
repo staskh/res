@@ -3,6 +3,7 @@
 Research and Engineering Studio (RES) is an AWS supported, open source product that enables IT administrators to provide a web portal for scientists and engineers to run technical computing workloads on AWS. 
 
 - [Documentation](https://docs.aws.amazon.com/res/latest/ug/overview.html)
+  - [Deploying in isolated VPC](https://docs.aws.amazon.com/res/latest/ug/prerequisites.html#private-vpc)
 - [Source code](https://github.com/aws/res)
 - [Demo Installation CFN](https://s3.amazonaws.com/aws-hpc-recipes/main/recipes/res/res_demo_env/assets/res-demo-stack.yaml)
   - [Demo Source Code](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/res_demo_env/assets/res-demo-stack.yaml)
@@ -32,6 +33,8 @@ export RES_DEV_MODE=true
 
 ./res-admin.sh show-connection-info --cluster-name res-demo --aws-region eu-west-1 --aws-profile poc-res
 
+./res-admin.sh check-cluster-status --cluster-name res-demo --aws-region eu-west-1 --aws-profile poc-res 
+
 (venv) (base) staskh@Stas-MacBook-Pro res % ./res-admin.sh list-modules  --cluster-name res-demo --aws-region eu-west-1 --aws-profile poc-res
 +-------------------+----------------------------+-------------------+--------+----------------------------+---------+----------+
 | Title             | Name                       | Module ID         | Type   | Stack Name                 | Version | Status   |
@@ -52,4 +55,35 @@ export RES_DEV_MODE=true
 
 ./res-admin.sh cdk diff vdc --cluster-name res-demo --aws-region eu-west-1 --aws-profile poc-res
 ```
+
+# Demo installation 
+
+[Code](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/res_demo_env/assets/res-demo-stack.yaml)
+
+
+- [res-demo-stack.yaml](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/res_demo_env/assets/res-demo-stack.yaml)
+  - AdminPassword
+  - ServiceAccountPassword
+  - Stack: [RESExternal](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/res_demo_env/assets/bi.yaml)
+  - Stack: [RES](https://research-engineering-studio-us-east-1.s3.amazonaws.com/releases/latest/ResearchAndEngineeringStudio.template.json) (https://github.com/aws/res/blob/mainline/source/idea/app.py#L63) starts after RESExternal completion  
+  - Stack: [RESSsoKeycloak - SSO setup with Keycloak](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/res_demo_env/assets/res-sso-keycloak.yaml) starts after RES completion
+    - KeycloakDataGatherLambdaExecutionRole
+    - KeycloakDataGatherHandlerFunction - 'Keycloak Data Gather Handler' gets cognito.UserPoolId, cognito.SAMLRedirectUrl, alb.LoadBalancerDnsName
+    - DataGatherCustomResource
+    - Stack: [Keycloak](https://github.com/aws-samples/aws-hpc-recipes/blob/main/recipes/res/res_demo_env/assets/keycloak.yaml)
+      - KeycloakSecret
+      - KeycloakSecurityGroup
+      - KeycloakEC2InstanceRole
+      - KeycloakEC2InstanceProfile
+      - KeycloakEC2Instance - setup EC2 with Keycloak installation
+      - 
+    - InvokeConfigureSSOLambdaRole
+    - InvokeConfigureSSOHandlerFunction
+    - InvokeConfigureSSOCustomResource
+  - InvokeDeleteSharedStorageSecurityGroupRole
+  - InvokeDeleteSharedSecurityGroupHandlerFunction - 'Deletes the shared storage security group when the stack is deleted.'
+  - InvokeDeleteSharedStorageSecurityGroup
+  - RESPostDeploymentConfiguationFunctionRole
+  - RESPostDeploymentConfiguationFunction - update cluster-settings table with 'shared-storage.enable_file_browser': True
+
 
